@@ -1,0 +1,15 @@
+/home/mpm/Glass_Tower/bin/Debug/net6.0/Glass_Tower
+/home/mpm/Glass_Tower/bin/Debug/net6.0/Glass_Tower.deps.json
+/home/mpm/Glass_Tower/bin/Debug/net6.0/Glass_Tower.runtimeconfig.json
+/home/mpm/Glass_Tower/bin/Debug/net6.0/Glass_Tower.dll
+/home/mpm/Glass_Tower/bin/Debug/net6.0/ref/Glass_Tower.dll
+/home/mpm/Glass_Tower/bin/Debug/net6.0/Glass_Tower.pdb
+/home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.csproj.AssemblyReference.cache
+/home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.GeneratedMSBuildEditorConfig.editorconfig
+/home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.AssemblyInfoInputs.cache
+/home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.AssemblyInfo.cs
+/home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.csproj.CoreCompileInputs.cache
+/home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.dll
+/home/mpm/Glass_Tower/obj/Debug/net6.0/ref/Glass_Tower.dll
+/home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.pdb
+/home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.genruntimeconfig.cache

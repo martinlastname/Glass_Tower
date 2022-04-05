@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "BB5WDJC6eKvoyaJEEAjMOOIPU7zCCyn9VO3VG4Rsl/y0xDCFdw+mYswO/yoNXEWAk/YlwygPEcxDa0XklzDoAw==",
+  "success": true,
+  "projectFilePath": "/home/mpm/Glass_Tower/Glass_Tower.csproj",
+  "expectedPackageFiles": [
+    "/home/mpm/.nuget/packages/raylib-cs/4.0.0.1/raylib-cs.4.0.0.1.nupkg.sha512",
+    "/home/mpm/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
+    "/home/mpm/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.2/microsoft.aspnetcore.app.ref.6.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
