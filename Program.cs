@@ -8,6 +8,8 @@ namespace HelloWorld
 		public static void Main()
 		{	
 			Raylib.InitWindow(800, 480, "Hello World");
+
+			// Needs to be some limit or else my graphics card freaks out.
 			Raylib.SetTargetFPS(120);
 
 			while (!Raylib.WindowShouldClose())
