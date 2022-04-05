@@ -13,3 +13,9 @@
 /home/mpm/Glass_Tower/obj/Debug/net6.0/ref/Glass_Tower.dll
 /home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.pdb
 /home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.genruntimeconfig.cache
+/home/mpm/Glass_Tower/bin/Debug/net6.0/Raylib-cs.dll
+/home/mpm/Glass_Tower/bin/Debug/net6.0/runtimes/linux-x64/native/libraylib.so
+/home/mpm/Glass_Tower/bin/Debug/net6.0/runtimes/osx-x64/native/libraylib.dylib
+/home/mpm/Glass_Tower/bin/Debug/net6.0/runtimes/win-x64/native/raylib.dll
+/home/mpm/Glass_Tower/bin/Debug/net6.0/runtimes/win-x86/native/raylib.dll
+/home/mpm/Glass_Tower/obj/Debug/net6.0/Glass_Tower.csproj.CopyComplete
