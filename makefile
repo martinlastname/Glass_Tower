@@ -3,13 +3,13 @@ SRCS		= main.c ECS.c
 
 TARGET		= Glass_Tower
 
-DEL			:= $(shell command -v trash 2> /dev/null)
-
 $(TARGET): all
 
 all:
 	cc $(SRCS) $(FLAGS) -o $(TARGET)
 
+# Uses trash-cli instead of rm if available.
+DEL			:= $(shell command -v trash 2> /dev/null)
 clean:
 ifndef DEL
 	rm *.o $(TARGET)
