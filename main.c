@@ -1,12 +1,12 @@
 #include "raylib.h"
 
-//#include "artist.h"
+#include "ECS.h"
 
 int ENTITIES = 0;
 
 int screenWidth = 800;
 int screenHeight = 450;
-
+/*
 struct Position {
   int entityID;
   Vector2 position;
@@ -31,7 +31,7 @@ void updatePosition(struct Position* p) {
   if (IsKeyDown(KEY_UP)) p->position.y -= 2.0f;
   if (IsKeyDown(KEY_DOWN)) p->position.y += 2.0f;
 }
-
+*/
 
 int main(void)
 {
