@@ -1,7 +1,21 @@
-main.o:
-	cc main.c ECS.c -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -o Glass_Tower
+FLAGS		= -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+SRCS		= main.c ECS.c
 
-Glass_Tower: main.o
+TARGET		= Glass_Tower
 
-run: Glass_Tower
+DEL			:= $(shell command -v trash 2> /dev/null)
+
+$(TARGET): all
+
+all:
+	cc $(SRCS) $(FLAGS) -o $(TARGET)
+
+clean:
+ifndef DEL
+	rm *.o $(TARGET)
+else
+	trash *.o $(TARGET)
+endif
+
+run: $(TARGET)
 	./Glass_Tower

@@ -1,7 +1,6 @@
 #ifndef ECS_DOT_H
 #define ECS_DOT_H
 
-
 struct Position {
   int entityID;
   Vector2 position;
