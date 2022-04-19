@@ -1,6 +1,9 @@
 #ifndef ECS_DATA_DOT_H
 #define ECS_DATA_DOT_H
 
+#include <stddef.h>
+#include <stdbool.h>
+
 struct ECS_Item {
   unsigned long key;
   void* value;
@@ -23,11 +26,10 @@ void* ecsTableFind(struct ECS_Table* hashTable, unsigned long key);
 void* ecsTableDelete(struct ECS_Table* hashTable, unsigned long key);
 
 // Item operations
-struct ECS_Item* ecsCreateEntry(unsigned long key, void* val);
-void ecsDestroyItem(struct ECS_Item* item);
+struct ECS_Item* ecsCreateItem(unsigned long key, void* val);
+void ecsDestroyItem(struct ECS_Item* item, bool recursive);
 
-
-unsigned long ecsGenerateHash(unsigned long key);
+size_t ecsGenerateHash(struct ECS_Table* hashTable, unsigned long key);
 void ecsRehash(struct ECS_Table* hashTable, size_t newSize);
 
 

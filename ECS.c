@@ -1,6 +1,7 @@
 #include "raylib.h"
 
 #include "ECS.h"
+#include "ECS_Table.h"
 
 extern int ENTITIES, screenWidth, screenHeight;
 

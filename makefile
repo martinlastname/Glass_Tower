@@ -12,9 +12,9 @@ all:
 DEL			:= $(shell command -v trash 2> /dev/null)
 clean:
 ifndef DEL
-	rm *.o $(TARGET)
+	rm $(TARGET)
 else
-	trash *.o $(TARGET)
+	trash $(TARGET)
 endif
 
 run: $(TARGET)
