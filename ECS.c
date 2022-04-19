@@ -3,6 +3,14 @@
 
 extern int ENTITIES, screenWidth, screenHeight;
 
+struct ComponentLists components;
+
+void runSystems() {
+  for (int i = 0; i < components.totalPositionComponents; ++i) {
+    updatePosition(&components.position_components[i]);
+  }
+}
+
 void createBall(struct ComponentLists* components) {
   int id = ENTITIES++;
   components->position_components[id].entityID = id;

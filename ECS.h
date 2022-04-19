@@ -14,6 +14,7 @@ struct ComponentLists {
 };
 
 void createBall(struct ComponentLists*);
+void runSystems();
 
 void updatePosition(struct Position* p);
 

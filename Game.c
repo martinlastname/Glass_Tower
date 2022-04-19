@@ -7,7 +7,7 @@ int ENTITIES = 0;
 int screenWidth = 800;
 int screenHeight = 450;
 
-static struct ComponentLists components;
+extern struct ComponentLists components;
 
 int runGame() {
   initGame();
@@ -33,9 +33,9 @@ static void drawFrame() {
 
   EndDrawing();
 }
-
+/*
 static void runSystems() {
   for (int i = 0; i < components.totalPositionComponents; ++i) {
     updatePosition(&components.position_components[i]);
   }
-}
+}*/
