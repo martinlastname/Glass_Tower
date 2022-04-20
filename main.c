@@ -2,5 +2,5 @@
 
 int main(void) {
   int exitCode = runGame();
-  return 0;
+  return exitCode;
 }

@@ -1,6 +1,6 @@
-#include <stdlib.h>
-
 #include "ECS_Table.h"
+
+//TODO Fix segfault.
 
 // Declare helpers
 static struct ECS_Table* ecsCreateTableOfSize(size_t sizeIndex);
@@ -77,7 +77,7 @@ void* ecsTableFind(struct ECS_Table* hashTable, unsigned long key) {
   hash = ecsGenerateHash(hashTable, key);
   item = hashTable->items[hash];
 
-  while (item->next) {
+  while (item) {
     item = item->next;
   }
 
@@ -141,6 +141,8 @@ void* ecsTableDelete(struct ECS_Table* hashTable, unsigned long key) {
 struct ECS_Item* ecsCreateItem(unsigned long key, void* val) {
   struct ECS_Item* item;
 
+  item = malloc(sizeof(struct ECS_Item));
+
   item->key = key;
   item->value = val; 
 
@@ -163,6 +165,7 @@ size_t ecsGenerateHash(struct ECS_Table* hashTable, unsigned long key) {
 
   //TODO implement actual hash function.
   hash = key % size;
+  hash = hash + 1;
 
   return hash;
 }

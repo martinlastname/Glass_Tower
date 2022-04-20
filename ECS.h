@@ -2,6 +2,7 @@
 #define ECS_DOT_H
 
 #include "raylib.h"
+#include "ECS_Table.h"
 
 struct Position {
   int entityID;
@@ -9,11 +10,12 @@ struct Position {
 };
 
 struct ComponentLists {
-  struct Position position_components[100];
-  int totalPositionComponents;
+  //struct Position position_components[100];
+  struct ECS_Table* positionComponents;
 };
 
-void createBall(struct ComponentLists*);
+void prepareECS();
+void createBall();
 void runSystems();
 
 void updatePosition(struct Position* p);

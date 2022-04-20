@@ -1,22 +1,29 @@
 #include "ECS.h"
-#include "ECS_Table.h"
 
 extern int ENTITIES, screenWidth, screenHeight;
 
 struct ComponentLists components;
 
 void runSystems() {
-  for (int i = 0; i < components.totalPositionComponents; ++i) {
-    updatePosition(&components.position_components[i]);
+  for (int i = 0; i < ENTITIES; ++i) {
+    updatePosition(ecsTableFind(components.positionComponents, i));
   }
 }
 
-void createBall(struct ComponentLists* components) {
-  int id = ENTITIES++;
-  components->position_components[id].entityID = id;
+void prepareECS() {
+  components.positionComponents = ecsCreateTable();
+}
+
+void createBall() {
+  unsigned long id = (unsigned long)++ENTITIES;
+
+  struct Position* positionComponent;
+  positionComponent = malloc(sizeof(struct Position));
+
+  ecsTableInsert(components.positionComponents, id, positionComponent);
+
   Vector2 ballPosition = { (float)screenWidth/2, (float)screenHeight/2 };
-  components->position_components[id].position = ballPosition;
-  components->totalPositionComponents++;
+  positionComponent->position = ballPosition;
 }    
 
 void updatePosition(struct Position* p) {

@@ -15,27 +15,27 @@ int runGame() {
     runSystems();
     drawFrame();
   }
+  return 0;
 }
 
 static void initGame() {
   InitWindow(screenWidth, screenHeight, "Glass_Tower");
   SetTargetFPS(60);
-  createBall(&components);
+  prepareECS();
+  createBall();
 }
 
 static void drawFrame() {
   BeginDrawing();
 
   ClearBackground(RAYWHITE);
-  for (int i = 0; i < components.totalPositionComponents; ++i) {
-    DrawCircleV(components.position_components[0].position, 50, MAROON);
+  for (int i = 0; i < ENTITIES; ++i) {
+    struct Position* drawable = ecsTableFind(components.positionComponents, i);
+
+    if (drawable) {
+      DrawCircleV(drawable->position, 50, MAROON);
+    }
   }
 
   EndDrawing();
 }
-/*
-static void runSystems() {
-  for (int i = 0; i < components.totalPositionComponents; ++i) {
-    updatePosition(&components.position_components[i]);
-  }
-}*/
