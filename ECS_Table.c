@@ -1,9 +1,10 @@
 #include "ECS_Table.h"
 
-//TODO Fix segfault.
-
 // Declare helpers
 static struct ECS_Table* ecsCreateTableOfSize(size_t sizeIndex);
+
+// All keys must be non-zero.
+unsigned long MIN_KEY = 1;
 
 static const size_t TABLE_SIZES[] = {
   53, 101, 211, 503, 1553, 3407, 6803, 12503, 25013, 50261,
@@ -78,15 +79,14 @@ void* ecsTableFind(struct ECS_Table* hashTable, unsigned long key) {
   item = hashTable->items[hash];
 
   while (item) {
-    item = item->next;
+    if (item->key != key) {
+      item = item->next;
+    } else {
+      return item;
+    }
   }
 
-  if (item) {
-    return item;
-  }
-  else {
-    return NULL;
-  }
+  return NULL;
 
 }
 

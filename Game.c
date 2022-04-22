@@ -2,7 +2,7 @@
 
 #include "Game.h"
 
-int ENTITIES = 0;
+unsigned long  ENTITIES = 0;
 
 int screenWidth = 800;
 int screenHeight = 450;
@@ -29,7 +29,7 @@ static void drawFrame() {
   BeginDrawing();
 
   ClearBackground(RAYWHITE);
-  for (int i = 0; i < ENTITIES; ++i) {
+  for (int i = 0; i <= ENTITIES; ++i) {
     struct Position* drawable = ecsTableFind(components.positionComponents, i);
 
     if (drawable) {
