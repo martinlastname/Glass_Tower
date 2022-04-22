@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "ECS.h"
 
 extern int screenWidth, screenHeight;
@@ -35,6 +37,17 @@ void createBall() {
 }    
 
 void updatePosition(struct Position* p) {
+  char text[20];
+  char teyt[20];
+  sprintf(text, "%f", p->position.x);
+  printf("x: %s\n", text);
+  sprintf(teyt, "%f", p->position.y);
+  printf("y: %s\n", teyt);
+
+  int x = GetKeyPressed();
+  printf("key: %d", x);
+
+
   if (IsKeyDown(KEY_RIGHT)) p->position.x += 2.0f;
   if (IsKeyDown(KEY_LEFT)) p->position.x -= 2.0f;
   if (IsKeyDown(KEY_UP)) p->position.y -= 2.0f;
