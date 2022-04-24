@@ -19,6 +19,8 @@ void runSystems() {
 
 void prepareECS() {
   components.position = ecsCreateTable();
+  components.player = ecsCreateTable();
+  components.drawV = ecsCreateTable(); 
 }
 
 void createBall() {
@@ -26,13 +28,25 @@ void createBall() {
   unsigned long id = ENTITIES;
 
   struct Position* positionComponent;
-  positionComponent = calloc(1, sizeof(struct Position));
-
-  ecsTableInsert(components.position, id, positionComponent);
-
+  positionComponent = malloc(sizeof(struct Position));
+  positionComponent->id = id;
   positionComponent->position.x = (float)screenWidth/2;
   positionComponent->position.y = (float)screenHeight/2;
-  positionComponent->id = id;
+  ecsTableInsert(components.position, id, positionComponent);
+
+  struct Player* playerComponent;
+  playerComponent = malloc(sizeof(struct Player));
+  playerComponent->id = id;
+  ecsTableInsert(components.player, id, playerComponent);
+
+  struct Drawable_Vector* drawVComponent;
+  drawVComponent = malloc(sizeof(struct Player));
+  drawVComponent->id = id;
+  drawVComponent->points = 1;
+  drawVComponent->radius = 50;
+  drawVComponent->color = MAROON;
+  ecsTableInsert(components.drawV, id, drawVComponent);
+
 }    
 
 void updatePosition(struct Position* p) {

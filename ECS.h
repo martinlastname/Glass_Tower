@@ -14,15 +14,19 @@ struct Player {
   // TODO assign input/controller mapping per player
 };
 
+// For drawing vectors of regular circles, lines, and regular polygons.
 struct Drawable_Vector {
   unsigned long id;
   // 1 point makes a circle, 2 a line, 3 a triangle, etc.
   int points;
+  float radius;
+  Color color;
 };
 
 struct Component_Tables {
   struct ECS_Table* position;
   struct ECS_Table* player;
+  struct ECS_Table* drawV;
 };
 
 void prepareECS();

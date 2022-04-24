@@ -16,7 +16,6 @@ int runGame() {
   while (!WindowShouldClose()) {
     runSystems();
     drawFrame();
-    Vector2 v = { (float) screenWidth/2, (float)screenHeight/2 }; 
   }
   return 0;
 }
@@ -30,13 +29,21 @@ static void initGame() {
 
 static void drawFrame() {
   BeginDrawing();
-
   ClearBackground(RAYWHITE);
-  for (int i = 0; i <= ENTITIES; ++i) {
-    struct Position* drawable = ecsTableFind(components.position, i);
 
+  for (int i = 0; i <= ENTITIES; ++i) {
+    struct Drawable_Vector* drawable = ecsTableFind(components.drawV, i);
     if (drawable) {
-      DrawCircleV(drawable->position, 50, MAROON);
+      struct Position* posC = ecsTableFind(components.position, i);
+      switch(drawable->points) {
+        case 1:
+          DrawCircleV(posC->position, drawable->radius, drawable->color); 
+          break;
+        case 2:
+          break;
+        default:
+      }
+      //DrawCircleV(drawable->position, 50, MAROON);
     }
   }
 
