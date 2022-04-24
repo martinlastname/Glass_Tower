@@ -5,7 +5,7 @@
 #include "ECS_Table.h"
 
 struct Position {
-  int entityID;
+  unsigned long entityID;
   Vector2 position;
 };
 
