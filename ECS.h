@@ -10,7 +10,6 @@ struct Position {
 };
 
 struct ComponentLists {
-  //struct Position position_components[100];
   struct ECS_Table* positionComponents;
 };
 

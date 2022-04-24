@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "raylib.h"
 
 #include "Game.h"
@@ -14,6 +16,7 @@ int runGame() {
   while (!WindowShouldClose()) {
     runSystems();
     drawFrame();
+    Vector2 v = { (float) screenWidth/2, (float)screenHeight/2 }; 
   }
   return 0;
 }

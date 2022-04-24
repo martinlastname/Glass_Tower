@@ -82,7 +82,7 @@ void* ecsTableFind(struct ECS_Table* hashTable, unsigned long key) {
     if (item->key != key) {
       item = item->next;
     } else {
-      return item;
+      return item->value;
     }
   }
 
