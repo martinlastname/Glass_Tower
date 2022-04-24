@@ -9,7 +9,7 @@ unsigned long  ENTITIES = 0;
 int screenWidth = 800;
 int screenHeight = 450;
 
-extern struct ComponentLists components;
+extern struct Component_Tables components;
 
 int runGame() {
   initGame();
@@ -33,7 +33,7 @@ static void drawFrame() {
 
   ClearBackground(RAYWHITE);
   for (int i = 0; i <= ENTITIES; ++i) {
-    struct Position* drawable = ecsTableFind(components.positionComponents, i);
+    struct Position* drawable = ecsTableFind(components.position, i);
 
     if (drawable) {
       DrawCircleV(drawable->position, 50, MAROON);

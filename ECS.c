@@ -5,12 +5,12 @@
 extern int screenWidth, screenHeight;
 extern unsigned long ENTITIES, MIN_KEY;
 
-struct ComponentLists components;
+struct Component_Tables components;
 
 void runSystems() {
   for (int i = MIN_KEY; i <= ENTITIES; ++i) {
     struct Position* p;
-    p = ecsTableFind(components.positionComponents, i);
+    p = ecsTableFind(components.position, i);
     if (p) {
       updatePosition(p);
     }
@@ -18,7 +18,7 @@ void runSystems() {
 }
 
 void prepareECS() {
-  components.positionComponents = ecsCreateTable();
+  components.position = ecsCreateTable();
 }
 
 void createBall() {
@@ -28,12 +28,11 @@ void createBall() {
   struct Position* positionComponent;
   positionComponent = calloc(1, sizeof(struct Position));
 
-  ecsTableInsert(components.positionComponents, id, positionComponent);
+  ecsTableInsert(components.position, id, positionComponent);
 
-  //Vector2 ballPosition = { (float)screenWidth/2, (float)screenHeight/2 };
   positionComponent->position.x = (float)screenWidth/2;
   positionComponent->position.y = (float)screenHeight/2;
-  positionComponent->entityID = id;
+  positionComponent->id = id;
 }    
 
 void updatePosition(struct Position* p) {

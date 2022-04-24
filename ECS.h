@@ -5,12 +5,24 @@
 #include "ECS_Table.h"
 
 struct Position {
-  unsigned long entityID;
+  unsigned long id;
   Vector2 position;
 };
 
-struct ComponentLists {
-  struct ECS_Table* positionComponents;
+struct Player {
+  unsigned long id;
+  // TODO assign input/controller mapping per player
+};
+
+struct Drawable_Vector {
+  unsigned long id;
+  // 1 point makes a circle, 2 a line, 3 a triangle, etc.
+  int points;
+};
+
+struct Component_Tables {
+  struct ECS_Table* position;
+  struct ECS_Table* player;
 };
 
 void prepareECS();
