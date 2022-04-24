@@ -1,10 +1,9 @@
-#include <stdio.h>
-
 #include "raylib.h"
 
 #include "Game.h"
 
 unsigned long  ENTITIES = 0;
+extern unsigned long MIN_KEY;
 
 int screenWidth = 800;
 int screenHeight = 450;
@@ -24,16 +23,17 @@ static void initGame() {
   InitWindow(screenWidth, screenHeight, "Glass_Tower");
   SetTargetFPS(60);
   prepareECS();
-  createBall();
+  createPlayer();
 }
 
 static void drawFrame() {
   BeginDrawing();
   ClearBackground(RAYWHITE);
 
-  for (int i = 0; i <= ENTITIES; ++i) {
+  // TODO loop over only drawable entities, not all entities
+  for (int i = MIN_KEY; i <= ENTITIES; ++i) {
     struct Drawable_Vector* drawable = ecsTableFind(components.drawV, i);
-    if (drawable) {
+    if (drawable && drawable->visible) {
       struct Position* posC = ecsTableFind(components.position, i);
       switch(drawable->points) {
         case 1:
@@ -43,7 +43,6 @@ static void drawFrame() {
           break;
         default:
       }
-      //DrawCircleV(drawable->position, 50, MAROON);
     }
   }
 

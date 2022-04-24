@@ -23,7 +23,7 @@ void prepareECS() {
   components.drawV = ecsCreateTable(); 
 }
 
-void createBall() {
+void createPlayer() {
   ENTITIES++;
   unsigned long id = ENTITIES;
 
@@ -42,6 +42,7 @@ void createBall() {
   struct Drawable_Vector* drawVComponent;
   drawVComponent = malloc(sizeof(struct Player));
   drawVComponent->id = id;
+  drawVComponent->visible = true;
   drawVComponent->points = 1;
   drawVComponent->radius = 50;
   drawVComponent->color = MAROON;

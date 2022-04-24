@@ -1,6 +1,7 @@
 #ifndef ECS_DOT_H
 #define ECS_DOT_H
 
+#include <stdbool.h>
 #include "raylib.h"
 #include "ECS_Table.h"
 
@@ -17,8 +18,8 @@ struct Player {
 // For drawing vectors of regular circles, lines, and regular polygons.
 struct Drawable_Vector {
   unsigned long id;
-  // 1 point makes a circle, 2 a line, 3 a triangle, etc.
-  int points;
+  bool visible;
+  int points; // 1 point makes a circle, 2 a line, 3 a triangle, etc.
   float radius;
   Color color;
 };
@@ -30,7 +31,7 @@ struct Component_Tables {
 };
 
 void prepareECS();
-void createBall();
+void createPlayer();
 void runSystems();
 
 void updatePosition(struct Position* p);
