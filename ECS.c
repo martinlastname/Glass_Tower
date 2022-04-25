@@ -27,7 +27,7 @@ void prepareECS() {
 
 void registerPlayer(unsigned long id) {
   size_t i = 0;
-  while (playerArray[i] != 0) {
+  while ((i < sizeof(playerArray)) && (playerArray[i] != 0)) {
     i++;
   }
   playerArray[i] = id;
