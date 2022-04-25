@@ -54,6 +54,7 @@ static void createPlayer() {
   drawVComponent->color = config.playerColor;
   hashTableInsert(components.drawV, id, drawVComponent);
 
+  registerPlayer(id);
 }
 
 static void drawFrame() {

@@ -2,39 +2,33 @@
 
 #include "ECS.h"
 
+#include "Player.h"
+
 extern int screenWidth, screenHeight;
 extern unsigned long ENTITIES, MIN_KEY;
 extern struct Config config;
 
 struct Component_Tables components;
+unsigned long* playerArray;
 
 void runSystems() {
-  for (int i = MIN_KEY; i <= ENTITIES; ++i) {
-    struct Position* p;
-    p = hashTableFind(components.position, i);
-    if (p) {
-      updatePosition(p);
-    }
+  for (size_t i = 0; playerArray[i] != 0; i++) {
+    playerMove(playerArray[i]);
   }
 }
 
 void prepareECS() {
+  playerArray = calloc(64, sizeof(unsigned long));
+
   components.position = hashCreateTable();
   components.player = hashCreateTable();
   components.drawV = hashCreateTable(); 
 }
 
-void updatePosition(struct Position* p) {
-  if (IsKeyDown(config.RIGHT_KEY)) {
-    p->position.x += config.playerMoveSpeed;
+void registerPlayer(unsigned long id) {
+  size_t i = 0;
+  while (playerArray[i] != 0) {
+    i++;
   }
-  if (IsKeyDown(config.LEFT_KEY)) {
-    p->position.x -= config.playerMoveSpeed;
-  }
-  if (IsKeyDown(config.UP_KEY)) { 
-    p->position.y -= config.playerMoveSpeed;
-  }
-  if (IsKeyDown(config.DOWN_KEY)) { 
-    p->position.y += config.playerMoveSpeed;
-  }
+  playerArray[i] = id;
 }

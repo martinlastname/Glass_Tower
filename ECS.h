@@ -35,6 +35,6 @@ struct Component_Tables {
 void prepareECS();
 void runSystems();
 
-void updatePosition(struct Position* p);
+void registerPlayer(unsigned long id);
 
 #endif
