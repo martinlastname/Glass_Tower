@@ -5,6 +5,8 @@
 
 struct Config {
   int fps;
+  int screenWidth;
+  int screenHeight;
 
   // Keybindings
   int UP_KEY;

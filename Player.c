@@ -1,7 +1,37 @@
 #include "Player.h"
 
+extern unsigned long ENTITIES;
 extern struct Component_Tables components;
 extern struct Config config;
+
+void playerCreate() {
+  ENTITIES++;
+  unsigned long id = ENTITIES;
+
+  struct Position* positionComponent;
+  positionComponent = malloc(sizeof(struct Position));
+  positionComponent->id = id;
+  positionComponent->position.x = (float)config.screenWidth/2;
+  positionComponent->position.y = (float)config.screenHeight/2;
+  hashTableInsert(components.position, id, positionComponent);
+
+  struct Player* playerComponent;
+  playerComponent = malloc(sizeof(struct Player));
+  playerComponent->id = id;
+  hashTableInsert(components.player, id, playerComponent);
+
+  struct Drawable_Vector* drawVComponent;
+  drawVComponent = malloc(sizeof(struct Drawable_Vector));
+  drawVComponent->id = id;
+  drawVComponent->visible = true;
+  drawVComponent->points = config.playerNumPoints;
+  drawVComponent->radius = config.playerRadius;
+  drawVComponent->color = config.playerColor;
+  hashTableInsert(components.drawV, id, drawVComponent);
+
+  registerDrawable(id);
+  registerPlayer(id);
+}
 
 void playerMove(unsigned long id) {
   struct Position* p = hashTableFind(components.position, id);

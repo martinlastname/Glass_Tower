@@ -2,6 +2,7 @@
 #define ECS_DOT_H
 
 #include <stdbool.h>
+#include <stdlib.h>
 #include "raylib.h"
 
 #include "Config.h"
@@ -14,7 +15,7 @@ struct Position {
 
 struct Player {
   unsigned long id;
-  // TODO assign input/controller mapping per player
+  int controller;
 };
 
 // For drawing vectors of regular circles, lines, and regular polygons.
@@ -32,9 +33,16 @@ struct Component_Tables {
   struct Hash_Table* drawV;
 };
 
+// Tracks all drawables of any time.
+struct Drawables_List {
+  unsigned long* idArray;
+  size_t count;
+};
+
 void prepareECS();
 void runSystems();
 
 void registerPlayer(unsigned long id);
+void registerDrawable(unsigned long id);
 
 #endif

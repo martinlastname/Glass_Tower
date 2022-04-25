@@ -6,7 +6,6 @@
 int runGame();
 
 static void initGame();
-static void createPlayer();
 static void drawFrame();
 
 #endif

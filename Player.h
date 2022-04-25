@@ -5,6 +5,7 @@
 
 #include "ECS.h"
 
+void playerCreate();
 void playerMove(unsigned long id);
 
 #endif

@@ -4,6 +4,8 @@ struct Config config;
 
 void initConfig() {
   config.fps = 60;
+  config.screenWidth = 800;
+  config.screenHeight = 450;
 
   config.UP_KEY = 87;
   config.DOWN_KEY = 83;
