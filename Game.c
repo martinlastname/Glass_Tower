@@ -5,6 +5,7 @@
 
 unsigned long  ENTITIES = 0;
 extern unsigned long MIN_KEY;
+extern struct Config config;
 
 int screenWidth = 800;
 int screenHeight = 450;
@@ -23,7 +24,7 @@ int runGame() {
 static void initGame() {
   initConfig();
   InitWindow(screenWidth, screenHeight, "Glass_Tower");
-  SetTargetFPS(60);
+  SetTargetFPS(config.fps);
   prepareECS();
   createPlayer();
 }
@@ -48,9 +49,9 @@ static void createPlayer() {
   drawVComponent = malloc(sizeof(struct Player));
   drawVComponent->id = id;
   drawVComponent->visible = true;
-  drawVComponent->points = 1;
-  drawVComponent->radius = 5;
-  drawVComponent->color = MAROON;
+  drawVComponent->points = config.playerNumPoints;
+  drawVComponent->radius = config.playerRadius;
+  drawVComponent->color = config.playerColor;
   hashTableInsert(components.drawV, id, drawVComponent);
 
 }
