@@ -3,7 +3,9 @@
 
 #include <stdbool.h>
 #include "raylib.h"
-#include "ECS_Table.h"
+
+#include "Config.h"
+#include "Hash_Table.h"
 
 struct Position {
   unsigned long id;
@@ -25,13 +27,12 @@ struct Drawable_Vector {
 };
 
 struct Component_Tables {
-  struct ECS_Table* position;
-  struct ECS_Table* player;
-  struct ECS_Table* drawV;
+  struct Hash_Table* position;
+  struct Hash_Table* player;
+  struct Hash_Table* drawV;
 };
 
 void prepareECS();
-void createPlayer();
 void runSystems();
 
 void updatePosition(struct Position* p);

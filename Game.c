@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "raylib.h"
 
 #include "Game.h"
@@ -20,10 +21,38 @@ int runGame() {
 }
 
 static void initGame() {
+  initConfig();
   InitWindow(screenWidth, screenHeight, "Glass_Tower");
   SetTargetFPS(60);
   prepareECS();
   createPlayer();
+}
+
+static void createPlayer() {
+  ENTITIES++;
+  unsigned long id = ENTITIES;
+
+  struct Position* positionComponent;
+  positionComponent = malloc(sizeof(struct Position));
+  positionComponent->id = id;
+  positionComponent->position.x = (float)screenWidth/2;
+  positionComponent->position.y = (float)screenHeight/2;
+  hashTableInsert(components.position, id, positionComponent);
+
+  struct Player* playerComponent;
+  playerComponent = malloc(sizeof(struct Player));
+  playerComponent->id = id;
+  hashTableInsert(components.player, id, playerComponent);
+
+  struct Drawable_Vector* drawVComponent;
+  drawVComponent = malloc(sizeof(struct Player));
+  drawVComponent->id = id;
+  drawVComponent->visible = true;
+  drawVComponent->points = 1;
+  drawVComponent->radius = 5;
+  drawVComponent->color = MAROON;
+  hashTableInsert(components.drawV, id, drawVComponent);
+
 }
 
 static void drawFrame() {
@@ -32,9 +61,9 @@ static void drawFrame() {
 
   // TODO loop over only drawable entities, not all entities
   for (int i = MIN_KEY; i <= ENTITIES; ++i) {
-    struct Drawable_Vector* drawable = ecsTableFind(components.drawV, i);
+    struct Drawable_Vector* drawable = hashTableFind(components.drawV, i);
     if (drawable && drawable->visible) {
-      struct Position* posC = ecsTableFind(components.position, i);
+      struct Position* posC = hashTableFind(components.position, i);
       switch(drawable->points) {
         case 1:
           DrawCircleV(posC->position, drawable->radius, drawable->color); 

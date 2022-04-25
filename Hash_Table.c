@@ -1,7 +1,7 @@
-#include "ECS_Table.h"
+#include "Hash_Table.h"
 
 // Declare helpers
-static struct ECS_Table* ecsCreateTableOfSize(size_t sizeIndex);
+static struct Hash_Table* hashCreateTableOfSize(size_t sizeIndex);
 
 // All keys must be non-zero.
 unsigned long MIN_KEY = 1;
@@ -12,14 +12,14 @@ static const size_t TABLE_SIZES[] = {
   25000009, 50000047, 104395301, 217645177, 512927357, 1000000007
 };
 
-struct ECS_Table* ecsCreateTable() {
-  return ecsCreateTableOfSize(0);
+struct Hash_Table* hashCreateTable() {
+  return hashCreateTableOfSize(0);
 }
 
-static struct ECS_Table* ecsCreateTableOfSize(size_t sizeIndex) {
-  struct ECS_Table* hashTable;
+static struct Hash_Table* hashCreateTableOfSize(size_t sizeIndex) {
+  struct Hash_Table* hashTable;
 
-  hashTable = malloc(sizeof(struct ECS_Table));
+  hashTable = malloc(sizeof(struct Hash_Table));
   hashTable->size = sizeIndex;
   hashTable->itemCount = 0;
 
@@ -30,22 +30,22 @@ static struct ECS_Table* ecsCreateTableOfSize(size_t sizeIndex) {
   return hashTable;
 }
 
-void ecsDestroyTable(struct ECS_Table* hashTable) {
+void hashDestroyTable(struct Hash_Table* hashTable) {
   size_t size = TABLE_SIZES[hashTable->size]; 
 
   for (size_t i = 0; i < size; i++) {
-    struct ECS_Item* item = hashTable->items[i];
+    struct Hash_Item* item = hashTable->items[i];
     if (item) {
-      ecsDestroyItem(item, true);
+      hashDestroyItem(item, true);
     }
   }
 }
 
-void ecsTableInsert(struct ECS_Table* hashTable, unsigned long key, void* value) {
+void hashTableInsert(struct Hash_Table* hashTable, unsigned long key, void* value) {
   size_t size, hash;
-  struct ECS_Item* item;
+  struct Hash_Item* item;
 
-  hash = ecsGenerateHash(hashTable, key);
+  hash = hashGenerateHash(hashTable, key);
   item = hashTable->items[hash];
 
   while (item) {
@@ -57,7 +57,7 @@ void ecsTableInsert(struct ECS_Table* hashTable, unsigned long key, void* value)
     item = item->next;
   }
 
-  item = ecsCreateItem(key, value);
+  item = hashCreateItem(key, value);
 
   item->next = hashTable->items[hash];
   hashTable->items[hash] = item;
@@ -66,16 +66,16 @@ void ecsTableInsert(struct ECS_Table* hashTable, unsigned long key, void* value)
   size = TABLE_SIZES[hashTable->size];
   if (hashTable->itemCount > (size / 2)) {
     size_t newSize = size + 1;
-    ecsRehash(hashTable, newSize);
+    hashRehash(hashTable, newSize);
   }
 
 }
 
-void* ecsTableFind(struct ECS_Table* hashTable, unsigned long key) {
+void* hashTableFind(struct Hash_Table* hashTable, unsigned long key) {
   size_t hash;
-  struct ECS_Item* item;
+  struct Hash_Item* item;
 
-  hash = ecsGenerateHash(hashTable, key);
+  hash = hashGenerateHash(hashTable, key);
   item = hashTable->items[hash];
 
   while (item) {
@@ -90,12 +90,12 @@ void* ecsTableFind(struct ECS_Table* hashTable, unsigned long key) {
 
 }
 
-void* ecsTableDelete(struct ECS_Table* hashTable, unsigned long key) {
+void* hashTableDelete(struct Hash_Table* hashTable, unsigned long key) {
   size_t size, hash;
-  struct ECS_Item* item;
+  struct Hash_Item* item;
   void* value;
 
-  hash = ecsGenerateHash(hashTable, key);
+  hash = hashGenerateHash(hashTable, key);
   item = hashTable->items[hash];
 
   if (key == item->key) {
@@ -104,7 +104,7 @@ void* ecsTableDelete(struct ECS_Table* hashTable, unsigned long key) {
   else {
     while (item) {
       if (item->next && (key == item->next->key)) {
-        struct ECS_Item* deletedItem;
+        struct Hash_Item* deletedItem;
 
         deletedItem = item->next;
         item->next = item->next->next;
@@ -121,7 +121,7 @@ void* ecsTableDelete(struct ECS_Table* hashTable, unsigned long key) {
 
 
   value = item->value;
-  ecsDestroyItem(item, false);
+  hashDestroyItem(item, false);
   hashTable->itemCount--;
 
   size = TABLE_SIZES[hashTable->size];
@@ -131,17 +131,17 @@ void* ecsTableDelete(struct ECS_Table* hashTable, unsigned long key) {
     if (size > 0) {
       newSize = size - 1;
     }
-    ecsRehash(hashTable, newSize);
+    hashRehash(hashTable, newSize);
   }
 
   return value;
 }
 
 
-struct ECS_Item* ecsCreateItem(unsigned long key, void* val) {
-  struct ECS_Item* item;
+struct Hash_Item* hashCreateItem(unsigned long key, void* val) {
+  struct Hash_Item* item;
 
-  item = malloc(sizeof(struct ECS_Item));
+  item = malloc(sizeof(struct Hash_Item));
 
   item->key = key;
   item->value = val; 
@@ -150,14 +150,14 @@ struct ECS_Item* ecsCreateItem(unsigned long key, void* val) {
 
 }
 
-void ecsDestroyItem(struct ECS_Item* item, bool recursive) {
+void hashDestroyItem(struct Hash_Item* item, bool recursive) {
   if (recursive && item->next) {
-    ecsDestroyItem(item->next, true);
+    hashDestroyItem(item->next, true);
   }
   free(item);
 }
 
-size_t ecsGenerateHash(struct ECS_Table* hashTable, unsigned long key) {
+size_t hashGenerateHash(struct Hash_Table* hashTable, unsigned long key) {
   size_t size, hash;
 
   size = TABLE_SIZES[hashTable->size];
@@ -170,9 +170,9 @@ size_t ecsGenerateHash(struct ECS_Table* hashTable, unsigned long key) {
   return hash;
 }
 
-void ecsRehash(struct ECS_Table* hashTable, size_t newSize) {
+void hashRehash(struct Hash_Table* hashTable, size_t newSize) {
   size_t hash, size;
-  struct ECS_Item** items;
+  struct Hash_Item** items;
 
   if (newSize == hashTable->size) {
     return;
@@ -185,13 +185,13 @@ void ecsRehash(struct ECS_Table* hashTable, size_t newSize) {
   hashTable->items = calloc(TABLE_SIZES[newSize], sizeof(void*));
 
   for (size_t i = 0; i < size; i++) {
-    struct ECS_Item* item;
+    struct Hash_Item* item;
 
     item = items[i];
     while (item) {
-      struct ECS_Item* nextItem;
+      struct Hash_Item* nextItem;
 
-      hash = ecsGenerateHash(hashTable, item->key);
+      hash = hashGenerateHash(hashTable, item->key);
       nextItem = item->next;
       item->next = hashTable->items[hash];
       hashTable->items[hash] = item;

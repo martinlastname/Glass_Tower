@@ -1,5 +1,5 @@
 FLAGS		= -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
-SRCS		= main.c ECS.c ECS_Table.c Game.c
+SRCS		= main.c Config.c ECS.c Game.c Hash_Table.c
 
 TARGET		= Glass_Tower
 TEST_TARGET	= TEST_Glass_Tower
