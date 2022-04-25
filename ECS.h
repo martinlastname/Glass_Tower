@@ -24,6 +24,8 @@ struct Drawable_Vector {
   bool visible;
   int points; // 1 point makes a circle, 2 a line, 3 a triangle, etc.
   float radius;
+  float lineThickness;
+  float rotation;
   Color color;
 };
 

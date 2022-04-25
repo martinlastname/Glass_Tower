@@ -21,8 +21,10 @@ void hazardCreate() {
   drawVComponent = malloc(sizeof(struct  Drawable_Vector));
   drawVComponent->id = id;
   drawVComponent->visible = true;
-  drawVComponent->points = 1;
-  drawVComponent->radius = 10.0f;
+  drawVComponent->points = 4;
+  drawVComponent->radius = 20.0f;
+  drawVComponent->lineThickness = 2;
+  drawVComponent->rotation = 180.0f;
   drawVComponent->color = BLUE;
   hashTableInsert(components.drawV, id, drawVComponent);
 

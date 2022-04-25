@@ -26,6 +26,7 @@ void playerCreate() {
   drawVComponent->visible = true;
   drawVComponent->points = config.playerNumPoints;
   drawVComponent->radius = config.playerRadius;
+  drawVComponent->rotation = 0;
   drawVComponent->color = config.playerColor;
   hashTableInsert(components.drawV, id, drawVComponent);
 
