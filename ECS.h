@@ -18,6 +18,12 @@ struct Player {
   int controller;
 };
 
+struct Collision {
+  unsigned long id;
+  int points;
+  float size; // Analogous to radius for simple shapes.
+};
+
 // For drawing vectors of regular circles, lines, and regular polygons.
 struct Drawable_Vector {
   unsigned long id;
@@ -35,8 +41,7 @@ struct Component_Tables {
   struct Hash_Table* drawV;
 };
 
-// Tracks all drawables of any time.
-struct Drawables_List {
+struct Registry {
   unsigned long* idArray;
   size_t count;
 };
@@ -44,7 +49,6 @@ struct Drawables_List {
 void prepareECS();
 void runSystems();
 
-void registerPlayer(unsigned long id);
-void registerDrawable(unsigned long id);
+void registerEntity(struct Registry* registry, unsigned long id);
 
 #endif

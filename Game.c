@@ -10,7 +10,7 @@ extern unsigned long MIN_KEY;
 extern struct Config config;
 
 extern struct Component_Tables components;
-extern struct Drawables_List drawables;
+extern struct Registry drawables;
 
 int runGame() {
   initGame();
@@ -38,26 +38,30 @@ static void drawFrame() {
 
   for (size_t i = 0; i < drawables.count; i++) {
     unsigned long id = drawables.idArray[i];
-    struct Drawable_Vector* drawable = hashTableFind(components.drawV, id);
-    if (drawable && drawable->visible) {
+
+    // Vector Shapes
+    struct Drawable_Vector* dVector = hashTableFind(components.drawV, id);
+    if (dVector && dVector->visible) {
       struct Position* posC = hashTableFind(components.position, id);
-      switch(drawable->points) {
+      switch(dVector->points) {
         case 1:
-          DrawCircleV(posC->position, drawable->radius, drawable->color); 
+          DrawCircleV(posC->position, dVector->radius, dVector->color); 
           break;
         case 2:
           // TODO rotate line based on drawable->rotation
           Vector2 startPos, endPos;
-          startPos.x = posC->position.x - (drawable->radius / 2);
-          startPos.y = posC->position.y - (drawable->radius / 2);
-          endPos.x = posC->position.x + (drawable->radius / 2);
-          endPos.y = posC->position.y + (drawable->radius / 2);
-          DrawLineEx(startPos, endPos, drawable->lineThickness, drawable->color);
+          startPos.x = posC->position.x - (dVector->radius / 2);
+          startPos.y = posC->position.y - (dVector->radius / 2);
+          endPos.x = posC->position.x + (dVector->radius / 2);
+          endPos.y = posC->position.y + (dVector->radius / 2);
+          DrawLineEx(startPos, endPos, dVector->lineThickness, dVector->color);
           break;
         default:
-          DrawPoly(posC->position, drawable->points, drawable->radius, drawable->rotation, drawable->color);
+          DrawPoly(posC->position, dVector->points, dVector->radius, dVector->rotation, dVector->color);
       }
     }
+
+    // Collision outlines
   }
 
   EndDrawing();

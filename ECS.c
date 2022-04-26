@@ -9,47 +9,39 @@ extern unsigned long ENTITIES, MIN_KEY;
 extern struct Config config;
 
 struct Component_Tables components;
-struct Drawables_List drawables;
-unsigned long* playerArray;
+struct Registry drawables, hazards, players;
 
 void runSystems() {
-  for (size_t i = 0; playerArray[i] != 0; i++) {
-    playerMove(playerArray[i]);
+  for (size_t i = 0; i < players.count; i++) {
+    playerMove(players.idArray[i]);
   }
 }
 
 void prepareECS() {
-  playerArray = calloc(64, sizeof(unsigned long));
+  players.idArray = calloc(64, sizeof(unsigned long));
+  players.count = 0;
   drawables.idArray = calloc(64, sizeof(unsigned long));
   drawables.count = 0;
+  hazards.idArray = calloc(64, sizeof(unsigned long));
+  hazards.count = 0;
 
   components.position = hashCreateTable();
   components.player = hashCreateTable();
   components.drawV = hashCreateTable(); 
 }
 
-void registerPlayer(unsigned long id) {
-  size_t i = 0;
-  while (playerArray[i] != 0) {
-    i++;
-  }
-  if (i < sizeof(playerArray)) {
-    playerArray[i] = id;
-  }
-}
-
-void registerDrawable(unsigned long id) {
-  size_t index = drawables.count;
-  if (index == sizeof(drawables.idArray)) {
-    unsigned long* oldArray = drawables.idArray;
+void registerEntity(struct Registry* registry, unsigned long id) {
+  size_t index = registry->count;
+  if (index == sizeof(registry->idArray)) {
+    unsigned long* oldArray = registry->idArray;
     size_t newSize = sizeof(oldArray) * 2;
     unsigned long* newArray = calloc(newSize, sizeof(unsigned long));
-    for (size_t i = 0; i < sizeof(drawables.idArray); i++) {
+    for (size_t i = 0; i < sizeof(registry->idArray); i++) {
       newArray[i] = oldArray[i];
     }
     free(oldArray);
-    drawables.idArray = newArray;
+    registry->idArray = newArray;
   }
-  drawables.idArray[index] = id;
-  drawables.count++;
+  registry->idArray[index] = id;
+  registry->count++;
 }

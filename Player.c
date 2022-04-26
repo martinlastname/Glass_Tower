@@ -3,6 +3,7 @@
 extern unsigned long ENTITIES;
 extern struct Component_Tables components;
 extern struct Config config;
+extern struct Registry drawables, players;
 
 void playerCreate() {
   ENTITIES++;
@@ -30,8 +31,8 @@ void playerCreate() {
   drawVComponent->color = config.playerColor;
   hashTableInsert(components.drawV, id, drawVComponent);
 
-  registerDrawable(id);
-  registerPlayer(id);
+  registerEntity(&drawables, id);
+  registerEntity(&players, id);
 }
 
 void playerMove(unsigned long id) {
