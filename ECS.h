@@ -39,6 +39,7 @@ struct Component_Tables {
   struct Hash_Table* position;
   struct Hash_Table* player;
   struct Hash_Table* drawV;
+  struct Hash_Table* collision;
 };
 
 struct Registry {

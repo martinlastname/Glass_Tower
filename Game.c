@@ -59,9 +59,17 @@ static void drawFrame() {
         default:
           DrawPoly(posC->position, dVector->points, dVector->radius, dVector->rotation, dVector->color);
       }
-    }
 
-    // Collision outlines
+      // Collision outlines
+      struct Collision* collider = hashTableFind(components.collision, id);
+      if (collider) {
+        switch(collider->points) {
+          default:
+            DrawCircleLines(posC->position.x, posC->position.y,\
+                            collider->size, dVector->color);
+        }
+      }
+    }
   }
 
   EndDrawing();

@@ -28,6 +28,7 @@ void prepareECS() {
   components.position = hashCreateTable();
   components.player = hashCreateTable();
   components.drawV = hashCreateTable(); 
+  components.collision = hashCreateTable();
 }
 
 void registerEntity(struct Registry* registry, unsigned long id) {

@@ -22,12 +22,19 @@ void hazardCreate() {
   drawVComponent = malloc(sizeof(struct  Drawable_Vector));
   drawVComponent->id = id;
   drawVComponent->visible = true;
-  drawVComponent->points = 4;
+  drawVComponent->points = 5;
   drawVComponent->radius = 20.0f;
   drawVComponent->lineThickness = 2;
   drawVComponent->rotation = 180.0f;
   drawVComponent->color = BLUE;
   hashTableInsert(components.drawV, id, drawVComponent);
+
+  struct Collision* collisionComponent;
+  collisionComponent = malloc(sizeof(struct Collision));
+  collisionComponent->id = id;
+  collisionComponent->points = 4;
+  collisionComponent->size = 20.0f;
+  hashTableInsert(components.collision, id, collisionComponent);
 
   registerEntity(&drawables, id);
   registerEntity(&hazards, id);

@@ -31,6 +31,13 @@ void playerCreate() {
   drawVComponent->color = config.playerColor;
   hashTableInsert(components.drawV, id, drawVComponent);
 
+  struct Collision* collisionComponent;
+  collisionComponent = malloc(sizeof(struct Collision));
+  collisionComponent->id = id;
+  collisionComponent->points = config.playerNumPoints;
+  collisionComponent->size = config.playerRadius;
+  hashTableInsert(components.collision, id, collisionComponent);
+
   registerEntity(&drawables, id);
   registerEntity(&players, id);
 }
