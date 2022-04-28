@@ -36,6 +36,7 @@ static void drawFrame() {
   BeginDrawing();
   ClearBackground(RAYWHITE);
 
+  // TODO Fix order of operations so player is always drawn last/on top.
   for (size_t i = 0; i < drawables.count; i++) {
     unsigned long id = drawables.idArray[i];
 
@@ -66,7 +67,7 @@ static void drawFrame() {
         switch(collider->points) {
           default:
             DrawCircleLines(posC->position.x, posC->position.y,\
-                            collider->size, dVector->color);
+                            collider->size, ORANGE);
         }
       }
     }
