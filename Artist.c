@@ -7,10 +7,13 @@ extern struct Registry drawables, hazards, players;
 
 static RenderTexture2D playerBuf, hazardBuf, debugBuf;
 
+const Color CLEAR = {0, 0, 0, 0};
+
 // Helper methods
 static void drawPlayers();
 static void drawHazards();
 static void drawDebug(struct Position* pos, unsigned long id);
+static void drawBuf(RenderTexture2D* buf);
 
 void prepareArtist() {
   int widthBuf = GetScreenWidth();
@@ -23,13 +26,30 @@ void prepareArtist() {
 }
 
 void drawFrame() {
+  BeginTextureMode(hazardBuf);
+  ClearBackground(CLEAR);
+  drawHazards();
+  EndTextureMode();
+
+  BeginTextureMode(playerBuf);
+  ClearBackground(CLEAR);
+  drawPlayers();
+  EndTextureMode();
+
   BeginDrawing();
   ClearBackground(RAYWHITE);
 
-  drawHazards();
-  drawPlayers();
+  drawBuf(&hazardBuf);
+  drawBuf(&playerBuf);
 
   EndDrawing();
+}
+
+static void drawBuf(RenderTexture2D* buf) {
+  Texture2D texture = buf->texture;
+  Rectangle rec = {0, 0, texture.width, -texture.height};
+  Vector2 root = {0, 0};
+  DrawTextureRec(texture, rec, root, WHITE);
 }
 
 static void drawPlayers() {
@@ -37,7 +57,7 @@ static void drawPlayers() {
     unsigned long id = players.idArray[i];
     struct Position* pos = hashTableFind(components.position, id);
     struct Drawable_Vector* drawable = hashTableFind(components.drawV, id);
-    if (drawable && pos) {
+    if (drawable && drawable->visible && pos) {
       switch(drawable->points) {
         case 1:
         case 2:
@@ -56,7 +76,7 @@ static void drawHazards() {
     unsigned long id = hazards.idArray[i];
     struct Position* pos = hashTableFind(components.position, id);
     struct Drawable_Vector* drawable = hashTableFind(components.drawV, id);
-    if (drawable && pos) {
+    if (drawable && drawable->visible && pos) {
       switch(drawable->points) {
         case 1:
         case 2:
