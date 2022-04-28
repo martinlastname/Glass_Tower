@@ -18,7 +18,7 @@ void hazardCreate() {
   positionComponent->position.y = rand() % config.screenHeight;
   hashTableInsert(components.position, id, positionComponent);
 
-  float hSize = 100.0f;
+  float hSize = 20.0f;
   int  hPoints = 5;
 
   struct Drawable_Vector* drawVComponent;

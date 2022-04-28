@@ -6,6 +6,5 @@
 int runGame();
 
 static void initGame();
-static void drawFrame();
 
 #endif

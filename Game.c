@@ -2,6 +2,8 @@
 #include "raylib.h"
 
 #include "Game.h"
+
+#include "Artist.h"
 #include "Hazard.h"
 #include "Player.h"
 
@@ -26,52 +28,9 @@ static void initGame() {
   InitWindow(config.screenWidth, config.screenHeight, "Glass_Tower");
   SetTargetFPS(config.fps);
   prepareECS();
+  prepareArtist();
   playerCreate();
   for (int i = 0; i < 5; i++) {
     hazardCreate();
   }
-}
-
-static void drawFrame() {
-  BeginDrawing();
-  ClearBackground(RAYWHITE);
-
-  // TODO Fix order of operations so player is always drawn last/on top.
-  for (size_t i = 0; i < drawables.count; i++) {
-    unsigned long id = drawables.idArray[i];
-
-    // Vector Shapes
-    struct Drawable_Vector* dVector = hashTableFind(components.drawV, id);
-    if (dVector && dVector->visible) {
-      struct Position* posC = hashTableFind(components.position, id);
-      switch(dVector->points) {
-        case 1:
-          DrawCircleV(posC->position, dVector->radius, dVector->color); 
-          break;
-        case 2:
-          // TODO rotate line based on drawable->rotation
-          Vector2 startPos, endPos;
-          startPos.x = posC->position.x - (dVector->radius / 2);
-          startPos.y = posC->position.y - (dVector->radius / 2);
-          endPos.x = posC->position.x + (dVector->radius / 2);
-          endPos.y = posC->position.y + (dVector->radius / 2);
-          DrawLineEx(startPos, endPos, dVector->lineThickness, dVector->color);
-          break;
-        default:
-          DrawPoly(posC->position, dVector->points, dVector->radius, dVector->rotation, dVector->color);
-      }
-
-      // Collision outlines
-      struct Collision* collider = hashTableFind(components.collision, id);
-      if (collider) {
-        switch(collider->points) {
-          default:
-            DrawCircleLines(posC->position.x, posC->position.y,\
-                            collider->size, ORANGE);
-        }
-      }
-    }
-  }
-
-  EndDrawing();
 }
