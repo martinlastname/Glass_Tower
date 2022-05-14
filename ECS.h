@@ -51,5 +51,6 @@ void prepareECS();
 void runSystems();
 
 void registerEntity(struct Registry* registry, unsigned long id);
+bool registryContainsEntity(struct Registry* registry, unsigned long id);
 
 #endif

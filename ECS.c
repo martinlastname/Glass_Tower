@@ -46,3 +46,12 @@ void registerEntity(struct Registry* registry, unsigned long id) {
   registry->idArray[index] = id;
   registry->count++;
 }
+
+bool registryContainsEntity(struct Registry* registry, unsigned long id) {
+  for(size_t i = 0; i < sizeof(registry->idArray); i++) {
+    if (registry->idArray[i] == id) {
+      return true;
+    }
+  }
+  return false;
+}

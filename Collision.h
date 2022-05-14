@@ -6,4 +6,6 @@
 
 #include "ECS.h"
 
+bool checkPair(unsigned long idA, unsigned long idB);
+
 #endif

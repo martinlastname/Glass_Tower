@@ -1,5 +1,6 @@
 #include "raylib.h"
 
+#include "Collision.h"
 #include "ECS.h"
 
 extern struct Component_Tables components;
@@ -96,6 +97,14 @@ static void drawDebug(struct Position* pos, unsigned long id) {
   if (collider) {
     switch(collider->points) {
       default:
+        if (registryContainsEntity(&players, id) == false) {
+          for (size_t i = 0; i < sizeof(players.idArray); i++) {
+            if (checkPair(players.idArray[i], id) == false) {
+              DrawCircleV(pos->position, collider->size, ORANGE);
+              return;
+            }
+          }
+        }
         DrawCircleLines(pos->position.x, pos->position.y,\
             collider->size, ORANGE);
     }
