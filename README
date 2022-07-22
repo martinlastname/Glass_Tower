@@ -1,1 +1,7 @@
 A game of some sort eventually.
+
+# Setting up development on a new system.
+
+1. Elsewhere, clone raylib, cd to raylib/src.
+2. Run `make` for appropriate platform.
+3. Run `sudo make install`.
